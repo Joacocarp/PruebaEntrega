@@ -1,0 +1,15 @@
+{% extends "aplicacion/index.html" %}
+
+
+{% block titulo %}
+{% endblock titulo %}
+
+
+{% block contenido %}
+  <form action = "" method = "POST">{% csrf_token %}
+    <table>
+      {{form.as_table}} <!-- Indica que se renderize el formulario enviado--> 
+    </table> 
+    <input type = "submit" value = "guardar ">
+  </form>
+{% endblock contenido %}

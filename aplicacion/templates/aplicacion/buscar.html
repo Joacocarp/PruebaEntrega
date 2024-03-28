@@ -1,0 +1,20 @@
+{% extends "aplicacion/index.html" %}
+
+
+{% block titulo %}
+  <h1>PERFIL CLIENTE</h1>
+{% endblock titulo %}
+
+
+{% block contenido %}
+  
+  <form action = "{% url 'encontrar_articulo' %}" method = "get"> 
+      {% csrf_token %}
+    <p> En esta seccion podrá buscar las remeras de su interés</p>
+    <br>
+    <p> Ingrese la remera a buscar: <input type = "text" name = "buscar" id = "buscar"></p>
+    
+    <input type = "submit" value = "Buscar">
+  </form>
+{% endblock contenido %}
+  

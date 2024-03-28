@@ -1,0 +1,18 @@
+{% extends "aplicacion/index.html" %}
+
+
+{% block titulo %}
+  <h1> BUZOS </h1>
+{% endblock titulo %}
+
+
+{% block contenido %}
+  <form action = "" method = "POST">{% csrf_token %}
+    <table>
+      <h2>Ingrese un nuevo buzo:</h2> 
+      {{form.as_table}} <!-- Indica que se renderize el formulario enviado--> 
+    </table> 
+    <input type = "submit" value = "guardar ">
+  </form>
+{% endblock contenido %}
+

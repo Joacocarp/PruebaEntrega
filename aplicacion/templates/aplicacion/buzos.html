@@ -1,0 +1,33 @@
+{% extends "aplicacion/index.html" %}
+
+
+{% block titulo %}
+  <h1>BUZOS </h1>
+{% endblock titulo %}
+
+
+{% block contenido %}
+  <h2>Datos buzos </h2>
+
+  <table class = "table table-striped">
+    <thead>
+        <tr>
+            <th>Articulo</th>
+            <th>Categoria</th>
+            <th>Descripcion</th>
+            <th>Talle</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for a in remeras %}
+        <tr>
+            <td>{{a.articulo}}</td>
+            <td>{{a.categoria}}</td>
+            <td>{{a.descripcion}}</td>
+            <td>{{a.talle}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock contenido %}
+  
