@@ -1,8 +1,8 @@
 Proyecto Final Coder House - Python
-Comisión: 27615
+
 Alumno: Joaquín González
-Nombre del Proyecto
-Limitless - venta de remeras, buzos y pantalones
+
+Nombre del Proyecto: Limitless 
 
 Descripción del Proyecto
 Realice la página como un prototipo de una página web de venta de ropa. El usuario puede ingresar a la página sin registrarse y ver las publicaciones de los productos. Para modificar o agregar publicaciones debe registrarse y logear su perfil. 
