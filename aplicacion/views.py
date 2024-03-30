@@ -74,8 +74,6 @@ class RemeraDelete(LoginRequiredMixin, DeleteView):
     model = Remera
     success_url = reverse_lazy("remeras")  
 
-  
-
 
 #__Buzos-View
 
@@ -102,14 +100,6 @@ class BuzoDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("buzos")  
   
 
-def clientes(request):
-  contexto = {'clientes' : Cliente.objects.all()}
-  return render(request, "aplicacion/clientes.html")
-
-def vendedores(request):
-  contexto = {'vendedores' : Vendedor.objects.all()}
-  return render(request, "aplicacion/vendedores.html")
-
 
 def acerca(request):
   return render(request, "aplicacion/acerca.html")
@@ -117,51 +107,10 @@ def acerca(request):
 def contacto(request):
   return render(request, "aplicacion/contacto.html")
 
-def agregar_cliente(request):
-  cliente = Cliente(nombre = "Joaco", apellido = "Gonzalez")
-  cliente.save()
-  respuesta = f"<html><h1>Se guardo el cliente</h1> </html>"
-  return HttpResponse(respuesta)
-
-def agregar_vendedor(request):
-  vendedor = Vendedor(nombre = "Empresario")
-  vendedor.save()
-  respuesta = f"<html><h1>Se guardo el vendedor</h1> </html>"
-  return HttpResponse(respuesta)
-
-
-#_____forms
-
-def clienteForm(request):
-  if request.method == "POST":
-    miForm = ClienteForm(request.POST)
-    if miForm.is_valid():
-      cliente_nombre = miForm.cleaned_data.get("nombre")
-      cliente_apellido = miForm.cleaned_data.get("apellido")
-      cliente = Cliente(nombre = cliente_nombre, apellido = cliente_apellido)
-      cliente.save()
-      return render(request, "aplicacion/index.html")
-  else:
-    miForm = ClienteForm()
-    
-  return render(request, "aplicacion/clienteForm.html", {"form": miForm})
 
 
 
 
-def buscar(request):
-  return render(request, "aplicacion/buscar.html")
-
-
-def encontrarArticulo(request):
-  if request.GET["buscar"]:
-    patron = request.GET["buscar"]
-    remera = Remera.objects.filter(articulo__icontains = patron)
-    contexto = {"remeras": remera}
-    return render(request, "aplicacion/remeras.html", contexto)
-  
-  contexto = {"remeras": Remera.objects.all()}
-  return render(request, "aplicacion/buscar.html")
 
 #______Login/Logout
 

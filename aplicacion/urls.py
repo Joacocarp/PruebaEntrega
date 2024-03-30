@@ -33,14 +33,7 @@ urlpatterns = [
      #__Edicion Perfil, Cambio de Clave, Avatar
     path('perfil/', editProfile, name="perfil"),
     path('<int:pk>/password/', CambiarClave.as_view(), name="cambiar_clave"),
-    path('agregar_avatar/', agregarAvatar, name="agregar_avatar"),
-
-    path('buscar_articulo/', buscar, name = "buscar_articulo"),
-    path('encontrar_articulo/', encontrarArticulo, name = "encontrar_articulo"),
-    path('cliente_form/', clienteForm, name = "cliente_form"),
-    path('clientes/', clientes, name = "clientes"),
-
-
+    path('agregar_avatar/', agregarAvatar, name="agregar_avatar")
 ]
 
 
