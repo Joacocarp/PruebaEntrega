@@ -7,11 +7,12 @@
 
 
 {% block contenido %}
-  <form action = "" method = "POST">{% csrf_token %}
+  <form action = "" method = "POST" enctype="multipart/form-data">
+    {% csrf_token %}
     <table>
       <h2>Ingrese un nuevo pantalon:</h2> 
 
-      {{form.as_table}} <!-- Indica que se renderize el formulario enviado--> 
+      {{form.as_table}}
     </table> 
     <input type = "submit" value = "guardar ">
   </form>

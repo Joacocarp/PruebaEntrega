@@ -1,0 +1,66 @@
+{% extends "aplicacion/index.html" %}
+
+
+{% block titulo %}
+<h1 class="mb-5">BUZOS</h1>
+{% endblock titulo %}
+
+
+{% block contenido %}
+
+<td width="200"><h2>Agregar buzo: </h2></td>
+<table>
+    <tr>
+        <td>
+            <a
+            href="{% url 'buzo_create' %}"
+            class="btn btn-primary btn-sm"
+            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
+            </a>
+        </td>        
+    </tr>
+</table>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Articulo</th>
+            <th>Categoria</th>
+            <th>Modelo</th>
+            <th>Talle</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for b in buzo_list  %}
+        <tr>
+            <td>
+                {% if b.imagenArticulo %}
+                    <p>
+                        <img src="{{b.imagenArticulo.url}}" height="200px" weight="200px"/>
+                    </p> 
+                {% endif %}
+            </td>
+            <td>{{ b.articulo}}</td>
+            <td>{{ b.categoria }}</td>
+            <td>{{ b.descripcion }}</td>
+            <td>{{ b.talle }}</td>
+            <td>
+                <a
+                  href= "{% url 'buzo_update' pk=b.pk %}"
+                  class="btn btn-primary"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+                </a>
+                <a
+                  href="{% url 'buzo_delete' pk=b.pk %}"
+                  class="btn btn-danger"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+                </a>                
+            </td>  
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock contenido %}

@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import * 
 
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 
 from django.views.generic import ListView
 from django.views.generic import CreateView
@@ -18,37 +19,88 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-def home(request):
-  return render(request, "aplicacion/index.html")
+class IndexView(TemplateView):
+    template_name = 'aplicacion/index.html'
 
-def remeras(request):
-  contexto = {'remeras': Remera.objects.all()}
-  return render(request, "aplicacion/remeras.html")
+#__Pantalones-View
 
-#__Pantalones
-
-class PantalonList(LoginRequiredMixin, ListView):
+class PantalonList(ListView):
   model = Pantalon
 
 class PantalonCreate(LoginRequiredMixin, CreateView):
-    model = Pantalon
-    fields = ["articulo", "categoria", "modelo", "talle"]
-    success_url = reverse_lazy("pantalones")
+  model = Pantalon
+  fields = ["articulo", "categoria", "modelo", "talle", "imagenArticulo"]
+  success_url = reverse_lazy("pantalones")
 
 class PantalonUpdate(LoginRequiredMixin, UpdateView):
-    model = Pantalon
-    fields = ["articulo", "categoria", "modelo", "talle"]
-    success_url = reverse_lazy("pantalones")
+  model = Pantalon
+  fields = ["articulo", "categoria", "modelo", "talle", "imagenArticulo"]
+  template_name = 'aplicacion/pantalon_Form.html'
+  success_url = reverse_lazy("pantalones")
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
 
 
 class PantalonDelete(LoginRequiredMixin, DeleteView):
     model = Pantalon
     success_url = reverse_lazy("pantalones")  
+
+   
+
+
+#__Remeras-View
+
+class RemeraList(ListView):
+  model = Remera
+
+class RemeraCreate(LoginRequiredMixin, CreateView):
+  model = Remera
+  fields = ["articulo", "categoria", "modelo", "talle", "imagenArticulo"]
+  success_url = reverse_lazy("remeras")
+
+class RemeraUpdate(LoginRequiredMixin, UpdateView):
+  model = Remera
+  fields = ["articulo", "categoria", "modelo", "talle", "imagenArticulo"]
+  template_name = 'aplicacion/remera_Form.html'
+  success_url = reverse_lazy("remeras")
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+class RemeraDelete(LoginRequiredMixin, DeleteView):
+    model = Remera
+    success_url = reverse_lazy("remeras")  
+
   
 
-def buzos(request):
-  contexto = {'buzos': Buzo.objects.all()}
-  return render(request, "aplicacion/buzos.html")
+
+#__Buzos-View
+
+class BuzoList(ListView):
+  model = Buzo
+
+class BuzoCreate(LoginRequiredMixin, CreateView):
+  model = Buzo
+  fields = ["articulo", "categoria", "descripcion", "talle", "imagenArticulo"]
+  success_url = reverse_lazy("buzos")
+
+class BuzoUpdate(LoginRequiredMixin, UpdateView):
+  model = Buzo
+  fields = ["articulo", "categoria", "descripcion", "talle", "imagenArticulo"]
+  template_name = 'aplicacion/buzo_Form.html'
+  success_url = reverse_lazy("buzos")
+
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+class BuzoDelete(LoginRequiredMixin, DeleteView):
+    model = Buzo
+    success_url = reverse_lazy("buzos")  
+  
 
 def clientes(request):
   contexto = {'clientes' : Cliente.objects.all()}
@@ -61,6 +113,9 @@ def vendedores(request):
 
 def acerca(request):
   return render(request, "aplicacion/acerca.html")
+
+def contacto(request):
+  return render(request, "aplicacion/contacto.html")
 
 def agregar_cliente(request):
   cliente = Cliente(nombre = "Joaco", apellido = "Gonzalez")
@@ -75,13 +130,7 @@ def agregar_vendedor(request):
   return HttpResponse(respuesta)
 
 
-def agregar_remera(request):
-  remera = Remera(articulo = "articulo", categoria = "categoria", modelo = "modelo", talle = "talle")
-  remera.save()
-  respuesta = f"<html><h1>Se guardo el articulo</h1> </html>"
-  return HttpResponse(respuesta)
-
-#______________forms
+#_____forms
 
 def clienteForm(request):
   if request.method == "POST":
@@ -97,39 +146,6 @@ def clienteForm(request):
     
   return render(request, "aplicacion/clienteForm.html", {"form": miForm})
 
-
-def remeraForm(request):
-  if request.method == "POST":
-    miForm = RemeraForm(request.POST)
-    if miForm.is_valid():
-      remera_nombre = miForm.cleaned_data.get("articulo")
-      remera_categoria = miForm.cleaned_data.get("categoria")
-      remera_modelo = miForm.cleaned_data.get("modelo")
-      remera_talle = miForm.cleaned_data.get("talle")
-      remera = Remera(articulo = remera_nombre,  categoria = remera_categoria, modelo = remera_modelo, talle = remera_talle)
-      remera.save()
-      return render(request, "aplicacion/index.html")
-  else:
-    miForm = RemeraForm()
-    
-  return render(request, "aplicacion/remeraForm.html", {"form": miForm})
-
-
-def buzoForm(request):
-  if request.method == "POST":
-    miForm = BuzoForm(request.POST)
-    if miForm.is_valid():
-      buzo_nombre = miForm.cleaned_data.get("articulo")
-      buzo_categoria = miForm.cleaned_data.get("categoria")
-      buzo_descripcion = miForm.cleaned_data.get("descripcion")
-      buzo_talle = miForm.cleaned_data.get("talle")
-      buzo = Buzo(articulo = buzo_nombre,  categoria = buzo_categoria, descripcion = buzo_descripcion, talle = buzo_talle)
-      buzo.save()
-      return render(request, "aplicacion/index.html")
-  else:
-    miForm = BuzoForm()
-    
-  return render(request, "aplicacion/buzoForm.html", {"form": miForm})
 
 
 
@@ -165,8 +181,6 @@ def login_request(request):
             finally:
                 request.session["avatar"] = avatar
 
-            #________________________________________________________
-
             return render(request, "aplicacion/index.html")
         else:
             return redirect(reverse_lazy('login'))
@@ -183,14 +197,14 @@ def register(request):
         if miForm.is_valid():
             usuario = miForm.cleaned_data.get("username")
             miForm.save()
-            return redirect(reverse_lazy('home'))
+            return redirect(reverse_lazy('index'))
     else:
     # __ Si ingresa en el else es la primera vez 
         miForm = RegistroForm()
 
     return render(request, "aplicacion/registro.html", {"form": miForm} ) 
 
-
+@login_required
 def agregarAvatar(request):
     if request.method == "POST":
         miForm = AvatarForm(request.POST, request.FILES)
@@ -209,30 +223,31 @@ def agregarAvatar(request):
             imagen = Avatar.objects.get(user=usuario).imagen.url
             request.session["avatar"] = imagen
             
-            return redirect(reverse_lazy('home'))
+            return redirect(reverse_lazy('index'))
     else:
     # __ Si ingresa en el else es la primera vez 
         miForm = AvatarForm()
 
     return render(request, "aplicacion/agregarAvatar.html", {"form": miForm} )      
 
+@login_required
 def editProfile(request):
-  usuario = request.user
-  if request.method == "POST":
-    miForm = UserEditForm(request.POST)
-    if miForm.is_valid():
-      user = User.objects.get(username=usuario)
-      user.email = miForm.cleaned_data.get("email")
-      user.first_name = miForm.cleaned_data.get("first_name")
-      user.last_name = miForm.cleaned_data.get("last_name")
-      user.save()
-      return redirect(reverse_lazy('home'))
+    usuario = request.user
+    if request.method == "POST":
+        miForm = UserEditForm(request.POST)
+        if miForm.is_valid():
+            user = User.objects.get(username=usuario)
+            user.email = miForm.cleaned_data.get("email")
+            user.first_name = miForm.cleaned_data.get("first_name")
+            user.last_name = miForm.cleaned_data.get("last_name")
+            user.save()
+            return redirect(reverse_lazy('index'))
     else:
-    # __ Si ingresa en el else es la primera vez 
-      miForm = UserEditForm(instance=usuario)
+        # Si la solicitud no es POST, se instancia el formulario con los datos del usuario actual
+        miForm = UserEditForm(instance=usuario)
 
-    return render(request, "aplicacion/editarPerfil.html", {"form": miForm} )    
-   
+    return render(request, "aplicacion/editarPerfil.html", {"form": miForm})
+
 class CambiarClave(LoginRequiredMixin, PasswordChangeView):
     template_name = "aplicacion/cambiar_clave.html"
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("index")

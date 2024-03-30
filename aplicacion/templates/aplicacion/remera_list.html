@@ -1,0 +1,67 @@
+{% extends "aplicacion/index.html" %}
+
+
+{% block titulo %}
+<h1 class="mb-5">REMERAS</h1>
+{% endblock titulo %}
+
+
+{% block contenido %}
+<td width="200"><h2>Agregar remera: </h2></td>
+
+<table>
+    <tr>
+        
+        <td>
+            <a
+            href="{% url 'reme_create' %}"
+            class="btn btn-primary btn-sm"
+            ><i class="fa fa-plus fa-lg" title="Crear"> </i>
+            </a>
+        </td>        
+    </tr>
+</table>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Articulo</th>
+            <th>Categoria</th>
+            <th>Modelo</th>
+            <th>Talle</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for r in remera_list  %}
+        <tr>
+            <td>
+                {% if r.imagenArticulo %}
+                    <p>
+                        <img src="{{r.imagenArticulo.url}}" height="200px" weight="200px"/>
+                    </p> 
+                {% endif %}
+            </td>
+            <td>{{ r.articulo}}</td>
+            <td>{{ r.categoria }}</td>
+            <td>{{ r.modelo }}</td>
+            <td>{{ r.talle }}</td>
+            <td>
+                <a
+                  href= "{% url 'reme_update' pk=r.pk %}"
+                  class="btn btn-primary"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-edit fa-sm" title="Edit Record"></i>
+                </a>
+                <a
+                  href="{% url 'reme_delete' pk=r.pk %}"
+                  class="btn btn-danger"
+                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                  ><i class="fa fa-trash fa-sm" title="Delete Record"></i>
+                </a>                
+            </td>  
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock contenido %}

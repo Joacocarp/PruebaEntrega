@@ -1,4 +1,5 @@
 from django import forms 
+from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 class ClienteForm(forms.Form):
@@ -40,3 +41,7 @@ class UserEditForm(UserChangeForm):
 
 class AvatarForm(forms.Form):
     imagen = forms.ImageField(required=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+       return f"{self.user} - {self.imagen}"
+

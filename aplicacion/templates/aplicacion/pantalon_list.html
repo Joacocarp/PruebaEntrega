@@ -2,7 +2,7 @@
 
 
 {% block titulo %}
-<h1 class="mb-5">Pantalones</h1>
+<h1 class="mb-5">PANTALONES</h1>
 {% endblock titulo %}
 
 
@@ -10,7 +10,7 @@
 
 <table>
     <tr>
-        <td width="200"><h2>Pantalones</h2></td>
+        <td width="200"><h2>Agregar pantalon: </h2></td>
         <td>
             <a
             href="{% url 'pant_create' %}"
@@ -34,13 +34,20 @@
     <tbody>
     {% for p in pantalon_list  %}
         <tr>
+            <td>
+                {% if p.imagenArticulo %}
+                    <p>
+                        <img src="{{p.imagenArticulo.url}}" height="200px" weight="200px"/>
+                    </p> 
+                {% endif %}
+            </td>
             <td>{{ p.articulo}}</td>
             <td>{{ p.categoria }}</td>
             <td>{{ p.modelo }}</td>
             <td>{{ p.talle }}</td>
             <td>
                 <a
-                  href= "{% url 'pant_update' pk=p.pk %}"
+                  href= "{% url 'pant_update'  pk=p.pk %}"
                   class="btn btn-primary"
                   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                   ><i class="fa fa-edit fa-sm" title="Edit Record"></i>

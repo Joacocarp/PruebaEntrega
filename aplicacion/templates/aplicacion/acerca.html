@@ -1,12 +1,51 @@
 {% extends "aplicacion/index.html" %}
 
-
+{% load static %}
 {% block titulo %}
-  <h1>Acerca De </h1>
+  <h1>ACERCA DE MI </h1>
 {% endblock titulo %}
 
 
 {% block contenido %}
-  <p>Página en construcción </p>
+<br>
+<br>
+
+
+    <div class="container">
+       <br>
+       <div class="row g-4">
+           <div class="col-md-6 col-lg-3">
+               <div class="card bg-success">
+                    <div class="card-body text-center">
+                        <img src="{% static 'imagenes/foto_cv.png' %}" class="rounded-circle mb-3" width="150px">
+                    <h3 class="card-title mb-3">Joaquín González</h3>
+                    <p class="card-text">Estudiante de Licenciatura en Sistemas</p>
+                    <p class="card-text">Sigueme en:</p>
+                    <a href="https://github.com/Joacocarp"><i class= "bi bi-github text-dark mx-1"></i></a>
+
+                    <a href="linkedin.com/in/joaquín-gonzález-2b839b236"><i class="bi bi-linkedin text-dark mx-1"></i></a>
+                    </div>
+               </div>
+           </div>
+           <div class="col">
+            <div class="">
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                 <div class="text-center">
+                    <p> Mi nombre es Joaquín González, tengo 21 años y vivo en Montevideo, Uruguay. Realice el curso de product manager en CoderHouse, y actualmente estoy en el curso de programación de Python. Tengo interés en la programación y administración de empresas. Espero les guste mi página.</p>
+                 </div>
+            </div>
+        </div>
+       </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
 {% endblock contenido %}
   
